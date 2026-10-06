@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>poliRating</title>
+    <script>
+      // GitHub Pages SPA redirect trick.
+      // Stores the current URL path in sessionStorage and redirects to root.
+      // The main index.html picks it up and restores the route via the router.
+      var path = window.location.pathname + window.location.search + window.location.hash
+      sessionStorage.setItem('spa-redirect', path)
+      window.location.replace(window.location.origin + (window.location.pathname.split('/').slice(0, 2).join('/') || '/'))
+    </script>
+  </head>
+  <body></body>
+</html>

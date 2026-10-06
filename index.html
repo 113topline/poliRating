@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>poliRating — Reviews de Periféricos</title>
+    <!-- Google Fonts: Space Grotesk (Titles/Headings) & DM Sans (Body/Text) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+    <!-- GitHub Pages SPA redirect recovery.
+         Pairs with public/404.html: restores the original path stored in
+         sessionStorage before the Vue app mounts, so deep links work on reload. -->
+    <script>
+      (function () {
+        var redirect = sessionStorage.getItem('spa-redirect')
+        if (redirect) {
+          sessionStorage.removeItem('spa-redirect')
+          window.history.replaceState(null, null, redirect)
+        }
+      })()
+    </script>
+    <!-- Apply saved theme immediately to avoid flash-of-wrong-theme on load -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('polirating-theme')
+          if (!t) t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+          document.documentElement.setAttribute('data-theme', t)
+        } catch (e) {}
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

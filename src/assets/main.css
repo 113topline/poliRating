@@ -1,0 +1,166 @@
+/* ==========================================================================
+   poliRating Minimalist Theme System & Global Styles
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Space+Grotesk:wght@300..700&display=swap');
+
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+
+  /* Color Palette - Light Mode */
+  --bg-site: #f4f4f7;           /* Light gray site background */
+  --bg-surface: #ffffff;        /* Surface / Card background */
+  --bg-surface-hover: #eaeaea;  /* Hover state */
+  --bg-header: rgba(244, 244, 247, 0.85);
+
+  --text-main: #111113;         /* Almost black text */
+  --text-muted: #64646e;        /* Muted secondary text */
+  --text-subtle: #8e8e98;       /* Subtle tertiary text */
+
+  --border-color: #e2e2e8;       /* Subtle border */
+  --border-focus: #111113;
+
+  /* Accent Colors */
+  --accent-primary: #111113;
+  --accent-green: #16a34a;       /* Green for ( ✓ ) */
+  --accent-red: #dc2626;         /* Red for ( X ) */
+
+  /* Specifications Table Special Colors */
+  --spec-title: #1d4ed8;         /* Dark blue for spec titles in light mode */
+  --spec-bg: #e4e4e8;            /* Gray darker than site bg in light mode */
+  --spec-border: #d4d4d9;        /* Horizontal row divider */
+
+  /* Typography Families */
+  --font-title: 'Space Grotesk', -apple-system, sans-serif;
+  --font-body: 'DM Sans', -apple-system, sans-serif;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Color Palette - Dark Graphite Mode */
+  --bg-site: #161618;           /* Dark graphite gray background */
+  --bg-surface: #202024;        /* Surface / Card background */
+  --bg-surface-hover: #2a2a30;  /* Hover state */
+  --bg-header: rgba(22, 22, 24, 0.85);
+
+  --text-main: #ffffff;         /* Pure white text */
+  --text-muted: #a1a1aa;        /* Muted secondary text */
+  --text-subtle: #71717a;       /* Subtle tertiary text */
+
+  --border-color: #27272a;       /* Dark border */
+  --border-focus: #ffffff;
+
+  /* Accent Colors */
+  --accent-primary: #ffffff;
+  --accent-green: #22c55e;       /* Bright green for ( ✓ ) */
+  --accent-red: #ef4444;         /* Bright red for ( X ) */
+
+  /* Specifications Table Special Colors */
+  --spec-title: #60a5fa;         /* Light blue for spec titles in dark mode */
+  --spec-bg: #222226;            /* Gray lighter than site bg in dark mode */
+  --spec-border: #3f3f46;        /* Horizontal row divider */
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.6);
+}
+
+/* ==========================================================================
+   Global Reset & Base Rules
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-site);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.25s ease, color 0.25s ease;
+  /* Prevent horizontal overflow on very narrow viewports */
+  overflow-x: hidden;
+}
+
+/* ==========================================================================
+   Typography Rules (Rule 1)
+   ========================================================================== */
+
+/* Space Grotesk for: Page titles, header logo/nav, section headings, legends, spec categories */
+h1, h2, h3, h4, h5, h6,
+.font-title,
+.site-name,
+.section-title,
+.page-heading h1,
+.specs-section h2,
+.group-header,
+.child-label,
+.specs-table th,
+figcaption,
+legend {
+  font-family: var(--font-title);
+  color: var(--text-main);
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+h2 {
+  font-size: clamp(1.4rem, 3.5vw, 2rem);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+p, span, li, td, button, input, select, textarea, label {
+  font-family: var(--font-body);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Smooth Transitions & Selection */
+::selection {
+  background: var(--text-main);
+  color: var(--bg-site);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-site);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
