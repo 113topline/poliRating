@@ -58,7 +58,9 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  // Pass the same base Vite uses so sub-path deployments (e.g. /poliRating/)
+  // don't produce 404s on page refresh or direct deep-link navigation.
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes,
   scrollBehavior: () => ({ top: 0 }),
 })
