@@ -10,15 +10,22 @@ const selectedCategory = ref(null)
 
 const FALLBACK_HERO = 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=1600&q=80'
 const RECENT_LIMIT = 6
+const settingsReady = ref(false)
 
 onMounted(async () => {
   await Promise.all([
     store.fetchPublicReviews({ limitN: 50 }),
-    store.fetchSiteSettings(),
+    store.fetchSiteSettings().then(() => { settingsReady.value = true }),
   ])
 })
 
-const heroSrc = computed(() => store.siteSettings.heroImage || FALLBACK_HERO)
+// Don't resolve to the fallback until settings have loaded; this prevents
+// HeroImage from mounting with the fallback URL and then re-fading when the
+// real image URL arrives from Firestore.
+const heroSrc = computed(() => {
+  if (!settingsReady.value) return null
+  return store.siteSettings.heroImage || FALLBACK_HERO
+})
 
 const pinnedReviews = computed(() =>
   store.reviews.filter(r => r.pinned)
@@ -34,11 +41,17 @@ const filteredReviews = computed(() => {
 
 <template>
   <div class="home-page">
-    <!-- Hero banner -->
-    <HeroImage :src="heroSrc" alt="poliRating" height="420px">
+    <!-- Hero banner — rendered only once heroSrc is resolved so HeroImage
+         never mounts with a transient fallback URL then re-fades. -->
+    <HeroImage v-if="heroSrc" :src="heroSrc" alt="poliRating" height="420px">
       <h1 class="hero-title">poliRating</h1>
       <p class="hero-subtitle">Reviews honestos de periféricos</p>
     </HeroImage>
+    <!-- Placeholder shown for the ~200 ms before Firestore resolves the hero URL -->
+    <div v-else class="hero-placeholder" style="height:420px">
+      <h1 class="hero-title">poliRating</h1>
+      <p class="hero-subtitle">Reviews honestos de periféricos</p>
+    </div>
 
     <div class="page-content">
       <!-- Pinned reviews -->
@@ -81,6 +94,18 @@ const filteredReviews = computed(() => {
 </template>
 
 <style scoped>
+.hero-placeholder {
+  position: relative;
+  width: 100%;
+  background: #0e0e10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+}
+
 .hero-title {
   font-family: var(--font-title);
   font-size: clamp(2.2rem, 6vw, 4rem);
@@ -151,6 +176,10 @@ const filteredReviews = computed(() => {
 @media (max-width: 640px) {
   /* Shrink hero on phones */
   :deep(.hero-wrap) {
+    height: 260px !important;
+  }
+
+  .hero-placeholder {
     height: 260px !important;
   }
 

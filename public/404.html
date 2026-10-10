@@ -12,9 +12,10 @@
     -->
     <script>
       sessionStorage.setItem('spa-redirect', window.location.pathname + window.location.search + window.location.hash)
-      window.location.replace(
-        window.location.origin + '/' + window.location.pathname.split('/')[1]
-      )
+      // Redirect to the app root (repo sub-path + trailing slash) so GitHub Pages
+      // serves index.html, which then restores the original URL from sessionStorage.
+      var base = '/' + window.location.pathname.split('/')[1] + '/'
+      window.location.replace(window.location.origin + base)
     </script>
   </head>
   <body></body>
